@@ -74,12 +74,37 @@ def forward_chaining_diagnosis(symptoms, risk_factors, vital_signs):
                 "treatment": rule["treatment"],
                 "confidence": round(match_percentage, 1),
                 "matched_symptoms": matched_symptoms,
-                "missing_symptoms": missing_symptoms
+                "missing_symptoms": missing_symptoms,
+                "rule_used": rule["id"]
             })
     #sort by confidence(highest first)
     diagnoses.sort(key=lambda x: x["confidence"], reverse=True)
     
     return diagnoses
+
+#explains why each conclusion was reached
+def explain_diagnoses(diagnoses):
+    if not diagnoses:
+        return "\n No diagnosis could be made. No rules were triggered."
+    
+    print("\n" + "-"*50)
+    print("EXPLANATION")
+    
+    for i, diag in enumerate(diagnoses[:3], 1):
+        print(f"\n DIAGNOSIS #{i}: {diag['disease']}\n")
+        print(f"The rule '{diag["rule_used"]}' was triggered because: \n")
+        
+        for symptom in diag["matched_symptoms"]:
+            print(f"Patient has: {symptom}\n")
+
+        if diag["missing_symptoms"]:
+            print(f"\nMissing for full confirmation:\n")
+            for symptom in diag["missing_symptoms"][:3]:
+                print(f"{symptom} (not reported)\n")
+        
+        print(f"Therefore, the system diagnosed: {diag["disease"]}\n")
+        print(f"Confidence: {diag["confidence"]}\n")
+        print(f"Recommendation: {diag["urgency"]}\n")
     
 def main():
     print("MEDICAL EXPERT SYSTEM")
@@ -93,7 +118,7 @@ def main():
     
     print("\n"+"-"*50)
     print("PATIENT INFORMATION SUMMARY")
-    print(f"Symptoms: {symptoms if symptoms else "None entered"}")
+    print(f"Symptoms: {symptoms if symptoms else 'None entered'}")
     print(f"Risk Factors: {risk_factors if risk_factors else "None"}")
     print(f"Vital Signs: {vital_signs if vital_signs else "None"}")
     
@@ -111,6 +136,9 @@ def main():
             print(f"   Severity: {diag['severity']}")
             print(f"   Urgency: {diag['urgency']}")
             print(f"   Treatment: {diag['treatment']}")
+            
+        #show explanation
+        explain_diagnoses(diagnoses)
     else:
         print("\nNo diagnosis could be made with the provided symptoms.")
     
