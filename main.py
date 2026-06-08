@@ -29,14 +29,14 @@ def get_patient_data():
             "Weakened Immune System", "Poor Sanitation"]
     
     for risk in risk_list:
-        if input(f"   {risk}? (y/n): ").lower() == 'y':
+        if input(f"   {risk}? (yes/no): ").lower() == 'yes':
             risk_factors.append(risk)
     
     vital_signs = []
     print("\nVITAL SIGNS (answer yes/no)")
     vital_list = ["High Fever (>39°C)", "Rapid Breathing", "Low Blood Pressure"]
     for vital in vital_list:
-        if input(f" {vital}? (yes/no)").lower() == "y":
+        if input(f" {vital}? (yes/no)").lower() == "yes":
             vital_signs.append(vital)
             
     return symptoms, risk_factors, vital_signs
@@ -48,6 +48,12 @@ def main():
     
     display_symptoms()
     symptoms, risk_factors, vital_signs = get_patient_data()
+    
+    print("\n"+"-"*50)
+    print("PATIENT INFORMATION SUMMARY")
+    print(f"Symptoms: {symptoms if symptoms else "None entered"}")
+    print(f"Risk Factors: {risk_factors if risk_factors else "None"}")
+    print(f"Vital Signs: {vital_signs if vital_signs else "None"}")
     
 if __name__ == "__main__":
     main()
