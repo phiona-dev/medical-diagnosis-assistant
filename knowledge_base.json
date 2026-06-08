@@ -1,0 +1,195 @@
+{
+    "symptoms": [
+        "Runny Nose",
+        "Sneezing",
+        "Sore Throat",
+        "Cough",
+        "Fever",
+        "Headache",
+        "Body Aches",
+        "Fatigue",
+        "Chills",
+        "Loss of Taste",
+        "Loss of Smell",
+        "Shortness of Breath",
+        "Blood in Sputum",
+        "Night Sweats",
+        "Weight Loss",
+        "Nausea",
+        "Vomiting",
+        "Diarrhea",
+        "Abdominal Pain",
+        "Swollen Lymph Nodes",
+        "Yellow Skin",
+        "Dark Urine",
+        "Joint Pain",
+        "Rash",
+        "Itchy Blisters",
+        "Pain when Swallowing",
+        "Burning Urination",
+        "Frequent Urination",
+        "Stiff Neck",
+        "Sensitivity to Light",
+        "Sweating",
+        "Cloudy Urine"
+    ],
+    
+    "risk_factors": [
+        "Recent Travel to Malaria Zone",
+        "Contact with Infected Person",
+        "Weakened Immune System",
+        "Unprotected Sex",
+        "Shared Needles",
+        "Poor Sanitation",
+        "Not Vaccinated"
+    ],
+    
+    "vital_signs": [
+        "High Fever (>39°C)",
+        "Low Fever (37.5-39°C)",
+        "Normal Temperature",
+        "Rapid Breathing",
+        "Low Blood Pressure"
+    ],
+    
+    "rules": [
+        {
+            "id": "common_cold",
+            "if": ["Runny Nose", "Sneezing", "Sore Throat", "Cough"],
+            "severity": "Mild",
+            "urgency": "Rest at home, no medical attention needed",
+            "then": "Common Cold",
+            "treatment": "Rest, fluids, over-the-counter cold medication"
+        },
+        {
+            "id": "influenza",
+            "if": ["Fever", "Headache", "Body Aches", "Fatigue", "Cough", "Chills"],
+            "severity": "Moderate",
+            "urgency": "Rest and monitor, see doctor if symptoms worsen",
+            "then": "Influenza (Flu)",
+            "treatment": "Rest, fluids, antiviral medication if early"
+        },
+        {
+            "id": "covid19",
+            "if": ["Fever", "Cough", "Fatigue", "Loss of Taste", "Loss of Smell", "Shortness of Breath"],
+            "severity": "Moderate to Severe",
+            "urgency": "Isolate immediately, get tested",
+            "then": "COVID-19",
+            "treatment": "Isolation, symptomatic treatment, monitor breathing"
+        },
+        {
+            "id": "malaria",
+            "if": ["Fever", "Headache", "Body Aches", "Chills", "Fatigue", "Sweating"],
+            "severity": "Severe",
+            "urgency": "Seek medical attention immediately",
+            "then": "Malaria",
+            "treatment": "Antimalarial medication"
+        },
+        {
+            "id": "tuberculosis",
+            "if": ["Cough", "Blood in Sputum", "Night Sweats", "Weight Loss", "Fatigue", "Fever"],
+            "severity": "Severe",
+            "urgency": "Seek medical attention immediately - contagious",
+            "then": "Tuberculosis (TB)",
+            "treatment": "Long-term antibiotics (6-9 months)"
+        },
+        {
+            "id": "gastroenteritis",
+            "if": ["Nausea", "Vomiting", "Diarrhea", "Abdominal Pain", "Fatigue"],
+            "severity": "Mild to Moderate",
+            "urgency": "Hydration is critical, seek care if severe",
+            "then": "Gastroenteritis (Stomach Flu)",
+            "treatment": "Oral rehydration, electrolytes, rest"
+        },
+        {
+            "id": "hiv_aids",
+            "if": ["Fatigue", "Fever", "Swollen Lymph Nodes", "Weight Loss", "Night Sweats"],
+            "severity": "Chronic Severe",
+            "urgency": "Get tested immediately",
+            "then": "HIV/AIDS",
+            "treatment": "Antiretroviral therapy (ART)"
+        },
+        {
+            "id": "hepatitis_a",
+            "if": ["Yellow Skin", "Dark Urine", "Fatigue", "Abdominal Pain", "Nausea"],
+            "severity": "Moderate",
+            "urgency": "See doctor, practice good hygiene",
+            "then": "Hepatitis A",
+            "treatment": "Supportive care, rest, hydration"
+        },
+        {
+            "id": "hepatitis_b",
+            "if": ["Yellow Skin", "Dark Urine", "Fatigue", "Joint Pain", "Abdominal Pain", "Nausea"],
+            "severity": "Severe Chronic",
+            "urgency": "Seek medical care immediately",
+            "then": "Hepatitis B",
+            "treatment": "Antiviral medications, monitoring"
+        },
+        {
+            "id": "pneumonia",
+            "if": ["Cough", "Fever", "Shortness of Breath", "Chest Pain", "Fatigue"],
+            "severity": "Severe",
+            "urgency": "Emergency - seek immediate medical care",
+            "then": "Pneumonia",
+            "treatment": "Antibiotics, hospitalization if severe"
+        },
+        {
+            "id": "chickenpox",
+            "if": ["Rash", "Itchy Blisters", "Fever", "Fatigue", "Headache"],
+            "severity": "Moderate",
+            "urgency": "Isolate, avoid pregnant women",
+            "then": "Chickenpox",
+            "treatment": "Antihistamines for itching, rest"
+        },
+        {
+            "id": "strep_throat",
+            "if": ["Sore Throat", "Fever", "Swollen Lymph Nodes", "Pain when Swallowing"],
+            "severity": "Moderate",
+            "urgency": "See doctor for strep test",
+            "then": "Strep Throat",
+            "treatment": "Antibiotics, rest, warm liquids"
+        },
+        {
+            "id": "uti",
+            "if": ["Burning Urination", "Frequent Urination", "Abdominal Pain", "Cloudy Urine"],
+            "severity": "Mild to Moderate",
+            "urgency": "See doctor for antibiotics",
+            "then": "Urinary Tract Infection (UTI)",
+            "treatment": "Antibiotics, increased water intake"
+        },
+        {
+            "id": "meningitis",
+            "if": ["Fever", "Headache", "Stiff Neck", "Sensitivity to Light", "Nausea", "Vomiting"],
+            "severity": "Critical",
+            "urgency": "EMERGENCY - Seek immediate medical care",
+            "then": "Meningitis",
+            "treatment": "Emergency hospitalization, antibiotics"
+        },
+        {
+            "id": "medical_emergency",
+            "if": ["High Fever", "Shortness of Breath", "Stiff Neck", "Sensitivity to Light"],
+            "severity": "Critical",
+            "urgency": "EMERGENCY - Call ambulance immediately",
+            "then": "Medical Emergency",
+            "treatment": "Immediate emergency department care"
+        }
+    ],
+    
+    "conclusions": [
+        "Common Cold",
+        "Influenza (Flu)",
+        "COVID-19",
+        "Malaria",
+        "Tuberculosis (TB)",
+        "Gastroenteritis (Stomach Flu)",
+        "HIV/AIDS",
+        "Hepatitis A",
+        "Hepatitis B",
+        "Pneumonia",
+        "Chickenpox",
+        "Strep Throat",
+        "Urinary Tract Infection (UTI)",
+        "Meningitis",
+        "Medical Emergency"
+    ]
+}
