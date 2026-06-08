@@ -40,6 +40,46 @@ def get_patient_data():
             vital_signs.append(vital)
             
     return symptoms, risk_factors, vital_signs
+
+#forward chaining: start with the symptoms, match rules and then reach the conclusion
+def forward_chaining_diagnosis(symptoms, risk_factors, vital_signs):
+    #combine all patient facts
+    patient_facts = symptoms + risk_factors + vital_signs
+    diagnoses=[]
+    
+    #check each rule
+    for rule in kb["rules"]:
+        required_symptoms = rule["if"]
+        
+        #count how many required symptoms match
+        matched_symptoms=[]
+        missing_symptoms=[]
+        
+        for req in required_symptoms:
+            if req in patient_facts:
+                matched_symptoms.append(req)
+            else:
+                missing_symptoms.append(req)
+        
+        
+        #calculate confidence percentage
+        match_percentage = (len(matched_symptoms) / len(required_symptoms)) * 100
+        
+        #if confidence is high enough (>= 60%), add to diagnoses
+        if match_percentage >= 60:
+            diagnoses.append({
+                "disease": rule["then"],
+                "severity": rule["severity"],
+                "urgency": rule["urgency"],
+                "treatment": rule["treatment"],
+                "confidence": round(match_percentage, 1),
+                "matched_symptoms": matched_symptoms,
+                "missing_symptoms": missing_symptoms
+            })
+    #sort by confidence(highest first)
+    diagnoses.sort(key=lambda x: x["confidence"], reverse=True)
+    
+    return diagnoses
     
 def main():
     print("MEDICAL EXPERT SYSTEM")
@@ -47,6 +87,8 @@ def main():
     print("-"*50)
     
     display_symptoms()
+    
+    #get patient data
     symptoms, risk_factors, vital_signs = get_patient_data()
     
     print("\n"+"-"*50)
@@ -54,6 +96,23 @@ def main():
     print(f"Symptoms: {symptoms if symptoms else "None entered"}")
     print(f"Risk Factors: {risk_factors if risk_factors else "None"}")
     print(f"Vital Signs: {vital_signs if vital_signs else "None"}")
+    
+    #run diagnoses
+    print("\n" + "-"*50)
+    print("RUNNING DIAGNOSES (Forward chaining)")
+    diagnoses = forward_chaining_diagnosis(symptoms, risk_factors, vital_signs)
+    
+    #display results
+    if diagnoses:
+        print("\n POSSIBLE DIAGNOSES (sorted by confidence)")
+        for i, diag in enumerate(diagnoses[:5], 1): #show top 5 diagnoses
+            print(f"\n{i}. {diag['disease']}")
+            print(f"   Confidence: {diag['confidence']}%")
+            print(f"   Severity: {diag['severity']}")
+            print(f"   Urgency: {diag['urgency']}")
+            print(f"   Treatment: {diag['treatment']}")
+    else:
+        print("\nNo diagnosis could be made with the provided symptoms.")
     
 if __name__ == "__main__":
     main()
