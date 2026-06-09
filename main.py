@@ -25,8 +25,13 @@ def get_patient_data():
     
     risk_factors = []
     print("\nRISK FACTORS (answer yes/no)")
-    risk_list = ["Recent Travel to Malaria Zone", "Contact with Infected Person", 
-            "Weakened Immune System", "Poor Sanitation"]
+    risk_list = ["Recent Travel to Malaria Zone",
+        "Contact with Infected Person",
+        "Weakened Immune System",
+        "Unprotected Sex",
+        "Shared Needles",
+        "Poor Sanitation",
+        "Not Vaccinated"]
     
     for risk in risk_list:
         if input(f"   {risk}? (yes/no): ").lower() == 'yes':
@@ -34,7 +39,8 @@ def get_patient_data():
     
     vital_signs = []
     print("\nVITAL SIGNS (answer yes/no)")
-    vital_list = ["High Fever (>39°C)", "Rapid Breathing", "Low Blood Pressure"]
+    vital_list = ["High Fever (>39°C)", "Low Fever (37.5-39°C)",
+        "Normal Temperature","Rapid Breathing", "Low Blood Pressure"]
     for vital in vital_list:
         if input(f" {vital}? (yes/no)").lower() == "yes":
             vital_signs.append(vital)
@@ -56,7 +62,8 @@ def forward_chaining_diagnosis(symptoms, risk_factors, vital_signs):
         missing_symptoms=[]
         
         for req in required_symptoms:
-            if req in patient_facts:
+            req_lower = req.lower()
+            if req_lower in [fact.lower() for fact in patient_facts]:
                 matched_symptoms.append(req)
             else:
                 missing_symptoms.append(req)
@@ -65,8 +72,8 @@ def forward_chaining_diagnosis(symptoms, risk_factors, vital_signs):
         #calculate confidence percentage
         match_percentage = (len(matched_symptoms) / len(required_symptoms)) * 100
         
-        #if confidence is high enough (>= 60%), add to diagnoses
-        if match_percentage >= 60:
+        #if confidence is high enough (>= 75%), add to diagnoses
+        if match_percentage >= 75:
             diagnoses.append({
                 "disease": rule["then"],
                 "severity": rule["severity"],
