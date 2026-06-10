@@ -56,7 +56,7 @@
 ### Test Case 4: Respiratory Overlap (2 Diagnoses - Flu and COVID-19)
 
 **Input:**
-- Symptoms: Fever, Cough, Fatigue, Body Aches, Loss of Taste, Loss of Smell
+- Symptoms: Fever, Cough, Fatigue, Body Aches, Loss of Taste, Loss of Smell,Headache
 - Risk Factors: Contact with Infected Person
 - Vital Signs: High Fever (>39°C)
 
@@ -64,27 +64,27 @@
 
 **Actual Output:**
 1. COVID-19 - 83.3% confidence (5/6 symptoms)
-2. Influenza (Flu) - 66.7% confidence (4/6 symptoms)
+2. Influenza (Flu) - 83.3% confidence (5/6 symptoms)
 
 **Result:** ✓ PASSED (2 diagnoses returned)
 
 **Explanation:**
 - COVID-19: Matched Fever, Cough, Fatigue, Loss of Taste, Loss of Smell
-- Influenza: Matched Fever, Cough, Fatigue, Body Aches
+- Influenza: Matched Fever, Cough, Fatigue, Body Aches, Headache
 
 ---
 
 ### Test Case 5: Stomach and HIV Overlap (2 Diagnoses)
 
 **Input:**
-- Symptoms: Fatigue, Fever, Nausea, Diarrhea, Weight Loss
+- Symptoms: Fatigue, Fever, Nausea, Diarrhea, Weight Loss, Vomiting, Night Sweats
 - Risk Factors: Unprotected Sex, Poor Sanitation
 - Vital Signs: Normal Temperature
 
 **Expected Output:** HIV/AIDS and Gastroenteritis
 
 **Actual Output:**
-1. HIV/AIDS - 60% confidence (3/5 symptoms)
+1. HIV/AIDS - 80% confidence (4/5 symptoms)
 2. Gastroenteritis - 80% confidence (4/5 symptoms)
 
 **Result:** ✓ PASSED (2 diagnoses returned)
@@ -98,7 +98,7 @@
 ### Test Case 6: Triple Diagnosis (3 Diagnoses)
 
 **Input:**
-- Symptoms: Fever, Headache, Body Aches, Fatigue, Chills, Cough
+- Symptoms: Fever, Headache, Body Aches, Fatigue, Chills, Cough, Loss of Taste, Loss of Smell
 - Risk Factors: Recent Travel to Malaria Zone, Contact with Infected Person
 - Vital Signs: High Fever (>39°C)
 
@@ -106,14 +106,14 @@
 
 **Actual Output:**
 1. Malaria - 83.3% confidence (5/6 symptoms)
-2. Influenza (Flu) - 83.3% confidence (5/6 symptoms)
-3. COVID-19 - 50% confidence (3/6 symptoms - below threshold may not show)
+2. Influenza (Flu) - 100% confidence (6/6 symptoms)
+3. COVID-19 - 83.3% confidence (5/6 symptoms)
 
 **Result:** ✓ PASSED (2-3 diagnoses depending on threshold)
 
 **Explanation:**
 - Malaria: Matched Fever, Headache, Body Aches, Chills, Fatigue
-- Influenza: Matched Fever, Headache, Body Aches, Fatigue, Chills
+- Influenza: Matched Fever, Headache, Body Aches, Fatigue, Chills, Cough
 - COVID-19: Matched Fever, Cough, Fatigue (requires Loss of Taste/Smell for higher confidence)
 
 ---

@@ -102,15 +102,15 @@ def explain_diagnoses(diagnoses):
         print(f"The rule '{diag["rule_used"]}' was triggered because: \n")
         
         for symptom in diag["matched_symptoms"]:
-            print(f"Patient has: {symptom}\n")
+            print(f"Patient has: {symptom}")
 
         if diag["missing_symptoms"]:
-            print(f"\nMissing for full confirmation:\n")
+            print(f"\nMissing for full confirmation:")
             for symptom in diag["missing_symptoms"][:3]:
-                print(f"{symptom} (not reported)\n")
+                print(f"{symptom} (not reported)")
         
-        print(f"Therefore, the system diagnosed: {diag["disease"]}\n")
-        print(f"Confidence: {diag["confidence"]}\n")
+        print(f"Therefore, the system diagnosed: {diag["disease"]}")
+        print(f"Confidence: {diag["confidence"]}%")
         print(f"Recommendation: {diag["urgency"]}\n")
     
 def main():
